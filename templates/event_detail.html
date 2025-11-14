@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}{{ event.name }} - Fitsphere{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card event-card">
+                <div class="card-body">
+                    <h1 class="card-title"><i class="fas fa-calendar-check"></i> {{ event.name }}</h1>
+                    <div class="mb-3">
+                        <span class="badge 
+                            {% if event.status == 'upcoming' %}bg-info
+                            {% elif event.status == 'ongoing' %}bg-warning
+                            {% elif event.status == 'completed' %}bg-success
+                            {% else %}bg-danger{% endif %}">
+                            {{ event.status|title }}
+                        </span>
+                    </div>
+                    <p class="lead">{% if event.description %}{{ event.description }}{% else %}Join us for this exciting sports event!{% endif %}</p>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong><i class="fas fa-clock"></i> Date & Time:</strong><br>
+                            {{ event.event_date.strftime('%B %d, %Y at %I:%M %p') }}</p>
+                            <p><strong><i class="fas fa-map-marker-alt"></i> Location:</strong><br>
+                            {{ event.location }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong><i class="fas fa-users"></i> Participants:</strong><br>
+                            {% if event.max_participants %}
+                                {{ registrations|length }} / {{ event.max_participants }} registered
+                                {% if registrations|length >= event.max_participants %}
+                                    <span class="badge bg-danger">Full</span>
+                                {% elif registrations|length >= (event.max_participants * 0.8) %}
+                                    <span class="badge bg-warning">Almost Full</span>
+                                {% endif %}
+                            {% else %}
+                                {{ registrations|length }} registered (Unlimited)
+                            {% endif %}
+                            </p>
+                            <p><strong><i class="fas fa-rupee-sign"></i> Registration Fee:</strong><br>
+                            ₹{{ "%.2f"|format(event.registration_fee) }}</p>
+                        </div>
+                    </div>
+                    <p><strong><i class="fas fa-building"></i> Organized by:</strong> 
+                    <a href="{{ url_for('club_detail', club_id=event.club.id) }}">{{ event.club.name }}</a></p>
+                    
+                    {% if session.user_id and event.status == 'upcoming' %}
+                        {% set user_member = namespace(found=false) %}
+                        {% for registration in registrations %}
+                            {% if registration.member.user_id == session.user_id %}
+                                {% set user_member.found = true %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% if user_member.found %}
+                            <div class="alert alert-info">
+                                <i class="fas fa-check-circle"></i> You are already registered for this event!
+                            </div>
+                        {% else %}
+                            <a href="{{ url_for('register_event', event_id=event.id) }}" class="btn btn-success"><i class="fas fa-check-circle"></i> Register for Event</a>
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-info-circle"></i> Note: You must be a member of {{ event.club.name }} to register for this event.
+                            </div>
+                        {% endif %}
+                    {% elif not session.user_id %}
+                        <div class="alert alert-info">
+                            <i class="fas fa-sign-in-alt"></i> Please <a href="{{ url_for('login') }}">login</a> to register for this event.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-users"></i> Registered Participants</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Total Registered:</strong> {{ registrations|length }}</p>
+                    {% if registrations %}
+                    <ul class="list-unstyled">
+                        {% for registration in registrations[:10] %}
+                        <li><i class="fas fa-user-check"></i> {{ registration.member.user.full_name }}</li>
+                        {% endfor %}
+                        {% if registrations|length > 10 %}
+                        <li class="text-muted">... and {{ registrations|length - 10 }} more</li>
+                        {% endif %}
+                    </ul>
+                    {% else %}
+                    <p class="text-muted">No registrations yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

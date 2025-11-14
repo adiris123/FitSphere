@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}All Clubs - Fitsphere{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="mb-4"><i class="fas fa-users"></i> All Sports Clubs</h1>
+    
+    <div class="row g-4">
+        {% if clubs %}
+            {% for club in clubs %}
+            <div class="col-md-4">
+                <div class="card club-card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-running"></i> {{ club.name }}</h5>
+                        <p class="card-text">{% if club.description %}{{ club.description[:150] }}{% if club.description|length > 150 %}...{% endif %}{% else %}A great sports club for enthusiasts of all levels!{% endif %}</p>
+                        <div class="mb-2">
+                            <span class="badge bg-primary">{{ club.sport_type }}</span>
+                        </div>
+                        <p class="text-muted mb-2">
+                            <i class="fas fa-map-marker-alt"></i> {{ club.location }}<br>
+                            <i class="fas fa-envelope"></i> {{ club.contact_email }}<br>
+                            <i class="fas fa-phone"></i> {{ club.contact_phone }}
+                        </p>
+                        <div class="d-grid gap-2">
+                            <a href="{{ url_for('club_detail', club_id=club.id) }}" class="btn btn-primary btn-sm">View Details</a>
+                            {% if session.user_id %}
+                            <a href="{{ url_for('join_club', club_id=club.id) }}" class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i> Join Club</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12 text-center">
+                <p class="text-muted">No clubs available yet.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Events - Fitsphere Admin{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="mb-4"><i class="fas fa-calendar-plus"></i> Manage Events</h1>
+    
+    <!-- Add New Event Form -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0"><i class="fas fa-plus-circle"></i> Create New Event</h5>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="{{ url_for('admin_events') }}">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="club_id" class="form-label">Select Club</label>
+                        <select class="form-select" id="club_id" name="club_id" required>
+                            <option value="">Choose a club...</option>
+                            {% for club in clubs %}
+                            <option value="{{ club.id }}">{{ club.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="name" class="form-label">Event Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="event_date" class="form-label">Event Date & Time</label>
+                        <input type="datetime-local" class="form-control" id="event_date" name="event_date" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="location" name="location" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="max_participants" class="form-label">Max Participants</label>
+                        <input type="number" class="form-control" id="max_participants" name="max_participants" placeholder="Leave empty for unlimited">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="registration_fee" class="form-label">Registration Fee (₹)</label>
+                        <input type="number" step="0.01" class="form-control" id="registration_fee" name="registration_fee" value="0.00" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Create Event</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Existing Events -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0"><i class="fas fa-list"></i> Existing Events</h5>
+        </div>
+        <div class="card-body">
+            {% if events %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Event Name</th>
+                            <th>Club</th>
+                            <th>Date</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                            <th>Registrations</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for event in events %}
+                        <tr>
+                            <td>{{ event.id }}</td>
+                            <td><strong>{{ event.name }}</strong></td>
+                            <td>{{ event.club.name }}</td>
+                            <td>{{ event.event_date.strftime('%Y-%m-%d %H:%M') }}</td>
+                            <td>{{ event.location }}</td>
+                            <td>
+                                <span class="badge 
+                                    {% if event.status == 'upcoming' %}bg-info
+                                    {% elif event.status == 'ongoing' %}bg-warning
+                                    {% elif event.status == 'completed' %}bg-success
+                                    {% else %}bg-danger{% endif %}">
+                                    {{ event.status|title }}
+                                </span>
+                            </td>
+                            <td>{{ event.registrations|length }}</td>
+                            <td>
+                                <a href="{{ url_for('event_detail', event_id=event.id) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <p class="text-muted text-center">No events created yet.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

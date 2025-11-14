@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Fitsphere{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <h1><i class="fas fa-trophy"></i> Welcome to Fitsphere</h1>
+        <p class="lead">Your ultimate sports club management solution - memberships, events, and activities all in one place!</p>
+        {% if not session.user_id %}
+        <a href="{{ url_for('register') }}" class="btn btn-light btn-lg me-3"><i class="fas fa-user-plus"></i> Join Now</a>
+        <a href="{{ url_for('clubs') }}" class="btn btn-outline-light btn-lg"><i class="fas fa-users"></i> Explore Clubs</a>
+        {% else %}
+        <a href="{{ url_for('dashboard') }}" class="btn btn-light btn-lg"><i class="fas fa-tachometer-alt"></i> Go to Dashboard</a>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center section-title">Our Features</h2>
+        <div class="row g-4 mt-4">
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                        <h5 class="card-title">Club Management</h5>
+                        <p class="card-text">Create and manage multiple sports clubs with ease. Track members, activities, and growth.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-calendar-alt fa-3x text-success mb-3"></i>
+                        <h5 class="card-title">Event Management</h5>
+                        <p class="card-text">Organize tournaments, training sessions, and social events. Handle registrations seamlessly.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-rupee-sign fa-3x text-warning mb-3"></i>
+                        <h5 class="card-title">Payment Tracking</h5>
+                        <p class="card-text">Keep track of membership fees, event payments, and financial records efficiently.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Clubs Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center section-title">Our Sports Clubs</h2>
+        <div class="row g-4 mt-4">
+            {% if clubs %}
+                {% for club in clubs[:6] %}
+                <div class="col-md-4">
+                    <div class="card club-card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-running"></i> {{ club.name }}</h5>
+                            <p class="card-text">{{ club.description[:100] }}...</p>
+                            <p class="text-muted"><i class="fas fa-map-marker-alt"></i> {{ club.location }}</p>
+                            <a href="{{ url_for('club_detail', club_id=club.id) }}" class="btn btn-primary btn-sm">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12 text-center">
+                    <p class="text-muted">No clubs available yet. Admin can create clubs from the dashboard.</p>
+                </div>
+            {% endif %}
+        </div>
+        {% if clubs|length > 6 %}
+        <div class="text-center mt-4">
+            <a href="{{ url_for('clubs') }}" class="btn btn-primary">View All Clubs</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Upcoming Events Section -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center section-title">Upcoming Events</h2>
+        <div class="row g-4 mt-4">
+            {% if events %}
+                {% for event in events %}
+                <div class="col-md-4">
+                    <div class="card event-card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-calendar-check"></i> {{ event.name }}</h5>
+                            <p class="card-text">{% if event.description %}{{ event.description[:80] }}...{% else %}Join us for this exciting event!{% endif %}</p>
+                            <p class="text-muted">
+                                <i class="fas fa-clock"></i> {{ event.event_date.strftime('%b %d, %Y at %I:%M %p') }}<br>
+                                <i class="fas fa-map-marker-alt"></i> {{ event.location }}
+                            </p>
+                            <a href="{{ url_for('event_detail', event_id=event.id) }}" class="btn btn-success btn-sm">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12 text-center">
+                    <p class="text-muted">No upcoming events at the moment.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+{% if not session.user_id %}
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <h2>Ready to Get Started?</h2>
+        <p class="lead">Join our sports community today and be part of something great!</p>
+        <a href="{{ url_for('register') }}" class="btn btn-light btn-lg"><i class="fas fa-user-plus"></i> Register Now</a>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

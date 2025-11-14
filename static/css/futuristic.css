@@ -1,0 +1,513 @@
+/* Futuristic Button Styles */
+.btn {
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-weight: 600;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    border: 2px solid transparent;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(255, 153, 51, 0.5);
+}
+
+.btn-primary {
+    background: var(--bg-gradient-2);
+    border-color: var(--saffron);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--bg-gradient-3);
+    border-color: var(--cyber-blue);
+    box-shadow: 0 10px 30px rgba(0, 217, 255, 0.5);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, var(--green) 0%, var(--neon-green) 100%);
+    border-color: var(--green);
+    color: white;
+}
+
+.btn-success:hover {
+    box-shadow: 0 10px 30px rgba(19, 136, 8, 0.6);
+}
+
+.btn-light {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--saffron);
+    border-color: white;
+    font-weight: 700;
+}
+
+.btn-light:hover {
+    background: white;
+    color: var(--green);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.5);
+}
+
+.btn-outline-light {
+    border-color: white;
+    color: white;
+}
+
+.btn-outline-light:hover {
+    background: white;
+    color: var(--saffron);
+}
+
+/* Stat Cards - Futuristic */
+.stat-card {
+    padding: 30px;
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s ease;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.stat-card i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 0 20px currentColor;
+}
+
+.stat-card h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin: 15px 0;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+}
+
+.stat-card p {
+    position: relative;
+    z-index: 1;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.stat-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.stat-card.bg-primary {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%);
+    border-color: rgba(102, 126, 234, 0.5);
+}
+
+.stat-card.bg-success {
+    background: linear-gradient(135deg, rgba(19, 136, 8, 0.8) 0%, rgba(0, 255, 136, 0.6) 100%);
+    border-color: rgba(19, 136, 8, 0.5);
+}
+
+.stat-card.bg-warning {
+    background: linear-gradient(135deg, rgba(255, 153, 51, 0.8) 0%, rgba(255, 215, 0, 0.6) 100%);
+    border-color: rgba(255, 153, 51, 0.5);
+}
+
+.stat-card.bg-info {
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.8) 0%, rgba(58, 123, 213, 0.8) 100%);
+    border-color: rgba(0, 217, 255, 0.5);
+}
+
+.stat-card.bg-danger {
+    background: linear-gradient(135deg, rgba(235, 51, 73, 0.8) 0%, rgba(244, 92, 67, 0.8) 100%);
+    border-color: rgba(235, 51, 73, 0.5);
+}
+
+/* Tables - Futuristic */
+.table-responsive {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 153, 51, 0.2);
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.table {
+    margin-bottom: 0;
+    color: white;
+}
+
+.table thead {
+    background: var(--bg-gradient-2);
+    color: white;
+}
+
+.table thead th {
+    border: none;
+    padding: 15px;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid rgba(255, 153, 51, 0.1);
+    transition: all 0.3s ease;
+}
+
+.table tbody tr:hover {
+    background: rgba(255, 153, 51, 0.1);
+    transform: scale(1.01);
+}
+
+.table td {
+    padding: 15px;
+    vertical-align: middle;
+    border: none;
+}
+
+/* Badges - Futuristic */
+.badge {
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.badge.bg-success {
+    background: linear-gradient(135deg, var(--green) 0%, var(--neon-green) 100%);
+}
+
+.badge.bg-danger {
+    background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+}
+
+.badge.bg-warning {
+    background: linear-gradient(135deg, var(--saffron) 0%, var(--gold) 100%);
+    color: #000;
+}
+
+.badge.bg-info {
+    background: linear-gradient(135deg, var(--cyber-blue) 0%, var(--ashoka-blue) 100%);
+}
+
+.badge.bg-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Form Controls - Futuristic */
+.form-control, .form-select {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 153, 51, 0.3);
+    border-radius: 15px;
+    color: white;
+    padding: 12px 20px;
+    font-size: 1.05rem;
+    transition: all 0.3s ease;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.form-control:focus, .form-select:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--saffron);
+    box-shadow: 0 0 20px rgba(255, 153, 51, 0.4);
+    color: white;
+}
+
+.form-label {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+/* Alerts - Futuristic */
+.alert {
+    border-radius: 15px;
+    border: 2px solid transparent;
+    backdrop-filter: blur(10px);
+    font-weight: 500;
+    padding: 15px 20px;
+}
+
+.alert-success {
+    background: rgba(19, 136, 8, 0.2);
+    border-color: var(--green);
+    color: var(--neon-green);
+}
+
+.alert-warning {
+    background: rgba(255, 153, 51, 0.2);
+    border-color: var(--saffron);
+    color: var(--gold);
+}
+
+.alert-danger {
+    background: rgba(235, 51, 73, 0.2);
+    border-color: #eb3349;
+    color: #ff6b6b;
+}
+
+.alert-info {
+    background: rgba(0, 217, 255, 0.2);
+    border-color: var(--cyber-blue);
+    color: var(--cyber-blue);
+}
+
+/* Footer - Futuristic */
+footer {
+    background: rgba(15, 12, 41, 0.95);
+    backdrop-filter: blur(10px);
+    border-top: 2px solid var(--saffron);
+    box-shadow: 0 -5px 30px rgba(255, 153, 51, 0.2);
+    margin-top: auto;
+}
+
+footer a {
+    transition: all 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--saffron) !important;
+    transform: scale(1.2);
+    text-shadow: 0 0 10px var(--saffron);
+}
+
+/* Section Backgrounds */
+.bg-light {
+    background: rgba(255, 255, 255, 0.02) !important;
+    backdrop-filter: blur(10px);
+}
+
+.py-5 {
+    padding: 4rem 0 !important;
+}
+
+/* Section Title */
+.section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 40px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid transparent;
+    border-image: var(--bg-gradient-2) 1;
+    display: inline-block;
+    background: var(--bg-gradient-2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 40px rgba(255, 153, 51, 0.3);
+    letter-spacing: 2px;
+}
+
+/* Club & Event Cards Special */
+.club-card {
+    border-left: 4px solid var(--saffron);
+}
+
+.event-card {
+    border-left: 4px solid var(--green);
+}
+
+.club-card:hover {
+    border-left-color: var(--neon-orange);
+    box-shadow: 0 15px 40px rgba(255, 107, 53, 0.4);
+}
+
+.event-card:hover {
+    border-left-color: var(--neon-green);
+    box-shadow: 0 15px 40px rgba(0, 255, 136, 0.4);
+}
+
+/* Text Colors */
+.text-muted {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Login/Register Cards */
+.login-card, .register-card {
+    max-width: 550px;
+    margin: 50px auto;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255, 153, 51, 0.3);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* Dropdown Menus */
+.dropdown-menu {
+    background: rgba(15, 12, 41, 0.98) !important;
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255, 153, 51, 0.5) !important;
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    margin-top: 10px !important;
+    min-width: 250px;
+    z-index: 1060 !important;
+    position: absolute !important;
+}
+
+.dropdown-menu.show {
+    display: block !important;
+    animation: dropdownFadeIn 0.3s ease;
+    z-index: 1060 !important;
+}
+
+@keyframes dropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-item {
+    color: white !important;
+    border-radius: 10px;
+    padding: 12px 20px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dropdown-item i {
+    width: 20px;
+    text-align: center;
+    color: var(--saffron);
+}
+
+.dropdown-item:hover {
+    background: rgba(255, 153, 51, 0.3) !important;
+    color: var(--saffron) !important;
+    transform: translateX(5px);
+}
+
+.dropdown-item:active {
+    background: rgba(255, 153, 51, 0.4) !important;
+}
+
+.dropdown-divider {
+    border-color: rgba(255, 153, 51, 0.3) !important;
+    margin: 8px 0;
+}
+
+.dropdown-toggle::after {
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+.navbar .dropdown {
+    position: relative;
+    z-index: 1060;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-section p {
+        font-size: 1.1rem;
+    }
+    
+    .navbar-brand {
+        font-size: 1.4rem;
+    }
+    
+    .stat-card h3 {
+        font-size: 2rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(15, 12, 41, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--bg-gradient-2);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, var(--neon-orange) 0%, var(--neon-green) 100%);
+}
+
+/* Loading Animation */
+@keyframes shimmer {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+}
+
+.loading {
+    animation: shimmer 2s infinite;
+    background: linear-gradient(to right, transparent 0%, rgba(255, 153, 51, 0.3) 50%, transparent 100%);
+    background-size: 1000px 100%;
+}

@@ -1,0 +1,176 @@
+:root {
+  --primary: #0a1f44;
+  --secondary: #f97316;
+  --light: #f8fafc;
+  --muted: #94a3b8;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--light);
+  color: var(--primary);
+  min-height: 100vh;
+}
+
+.navbar {
+  background: linear-gradient(135deg, var(--primary), #162a5c);
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+  color: #fff !important;
+  font-weight: 600;
+}
+
+.hero {
+  background: radial-gradient(circle at top, rgba(15, 32, 77, 0.8), rgba(10, 31, 68, 0.95)),
+    url('https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=1600&q=80') center/cover;
+  color: #fff;
+  padding: 6rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 31, 68, 0.6), rgba(10, 31, 68, 0.85));
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+}
+
+.btn-orange {
+  background: var(--secondary);
+  color: #fff;
+  border: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-orange:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(249, 115, 22, 0.35);
+}
+
+.feature-card {
+  background: #fff;
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 12px 24px rgba(15, 32, 77, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  overflow: hidden;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 34px rgba(10, 31, 68, 0.12);
+}
+
+.section-title {
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.badge-status {
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.badge-paid {
+  background: rgba(22, 163, 74, 0.15);
+  color: #15803d;
+}
+
+.badge-pending {
+  background: rgba(234, 179, 8, 0.2);
+  color: #b45309;
+}
+
+.table thead {
+  background: var(--primary);
+  color: #fff;
+}
+
+.card-highlight {
+  border-left: 4px solid var(--secondary);
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.offcanvas {
+  background: linear-gradient(135deg, var(--primary), #1f3161);
+  color: #fff;
+}
+
+.offcanvas .nav-link {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+}
+
+.stats-card {
+  border-radius: 12px;
+  background: #fff;
+  border: none;
+  box-shadow: 0 10px 24px rgba(15, 32, 77, 0.08);
+}
+
+.stats-card .icon-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(249, 115, 22, 0.12);
+  color: var(--secondary);
+  font-size: 1.25rem;
+}
+
+.table-hover tbody tr:hover {
+  background: rgba(10, 31, 68, 0.05);
+}
+
+.search-bar input {
+  border-radius: 999px;
+  padding-left: 1.25rem;
+}
+
+.search-bar .btn {
+  border-radius: 999px;
+}
+
+.card-action {
+  display: flex;
+  gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 4rem 0;
+  }
+
+  .table-responsive {
+    border-radius: 12px;
+    overflow: hidden;
+  }
+}

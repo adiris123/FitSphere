@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}{{ club.name }} - Fitsphere{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card club-card mb-4">
+                <div class="card-body">
+                    <h1 class="card-title"><i class="fas fa-trophy"></i> {{ club.name }}</h1>
+                    <p class="lead">{% if club.description %}{{ club.description }}{% else %}Welcome to our sports club! Join us for great activities and competitions.{% endif %}</p>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong><i class="fas fa-running"></i> Sport Type:</strong> {{ club.sport_type }}</p>
+                            <p><strong><i class="fas fa-map-marker-alt"></i> Location:</strong> {{ club.location }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong><i class="fas fa-envelope"></i> Email:</strong> {{ club.contact_email }}</p>
+                            <p><strong><i class="fas fa-phone"></i> Phone:</strong> {{ club.contact_phone }}</p>
+                        </div>
+                    </div>
+                    {% if session.user_id %}
+                        {% set user_is_member = namespace(value=false) %}
+                        {% for member in members %}
+                            {% if member.user_id == session.user_id %}
+                                {% set user_is_member.value = true %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% if user_is_member.value %}
+                            <div class="alert alert-success">
+                                <i class="fas fa-check-circle"></i> You are a member of this club!
+                            </div>
+                        {% else %}
+                            <a href="{{ url_for('join_club', club_id=club.id) }}" class="btn btn-success btn-lg"><i class="fas fa-user-plus"></i> Join This Club</a>
+                            <p class="text-muted mt-2"><small>Join to participate in club events and activities</small></p>
+                        {% endif %}
+                    {% else %}
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i> Please <a href="{{ url_for('login') }}">login</a> or <a href="{{ url_for('register') }}">register</a> to join this club.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Club Events -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-calendar"></i> Club Events</h5>
+                </div>
+                <div class="card-body">
+                    {% if events %}
+                    <div class="list-group">
+                        {% for event in events %}
+                        <a href="{{ url_for('event_detail', event_id=event.id) }}" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">{{ event.name }}</h6>
+                                <small>{{ event.event_date.strftime('%Y-%m-%d') }}</small>
+                            </div>
+                            <p class="mb-1">{{ event.description[:100] }}...</p>
+                            <small><i class="fas fa-map-marker-alt"></i> {{ event.location }}</small>
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p class="text-muted text-center">No events scheduled yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-users"></i> Club Members</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Total Members:</strong> {{ members|length }}</p>
+                    {% if members %}
+                    <ul class="list-unstyled">
+                        {% for member in members[:10] %}
+                        <li><i class="fas fa-user"></i> {{ member.user.full_name }}</li>
+                        {% endfor %}
+                        {% if members|length > 10 %}
+                        <li class="text-muted">... and {{ members|length - 10 }} more</li>
+                        {% endif %}
+                    </ul>
+                    {% else %}
+                    <p class="text-muted">No members yet. Be the first to join!</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
